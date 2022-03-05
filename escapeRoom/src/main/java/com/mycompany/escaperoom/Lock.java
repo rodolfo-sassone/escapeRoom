@@ -14,9 +14,17 @@ import java.io.Serializable;
 public abstract class Lock implements Serializable{
     
     private boolean locked;
+    
+    private final int score;
 
     public Lock() {
         this.locked = true;
+        this.score = 0;
+    }
+
+    public Lock(int score) {
+        this.locked = true;
+        this.score = score;
     }
 
     public boolean isLocked() {
@@ -27,8 +35,13 @@ public abstract class Lock implements Serializable{
         return !locked;
     }
     
-    public void setLocked(Boolean b) {
+    public void setLocked(boolean b) {
         locked = b;
     }
+
+    public int getScore() {
+        return score;
+    }
+    
     
 }

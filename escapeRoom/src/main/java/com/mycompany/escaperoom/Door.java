@@ -13,18 +13,31 @@ import java.io.Serializable;
  */
 public class Door implements Serializable{
     
-    private final Room room1;
+    private Room room1;
     
-    private final Room room2;
+    private Room room2;
     
-    private Lock Blocked;
+    private String desc;
+    
+    private Lock blocked;
+    
 
-    public Door(Room room1, Room room2, Lock Blocked) {
+    public Door(Room room1, Room room2, String desc, Lock Blocked) {
         this.room1 = room1;
         this.room2 = room2;
-        this.Blocked = Blocked;
+        this.desc = desc;
+        this.blocked = Blocked;
     }
 
+    public Door(Lock Blocked, String desc) {
+        this.blocked = Blocked;
+        this.desc = desc;
+    }
+
+    public Door() {
+    }
+    
+    
     public Room getRoom1() {
         return room1;
     }
@@ -34,12 +47,27 @@ public class Door implements Serializable{
     }
 
     public Lock getBlocked() {
-        return Blocked;
+        return blocked;
     }
 
     public void setBlocked(Lock Blocked) {
-        this.Blocked = Blocked;
+        this.blocked = Blocked;
     }
-    
+
+    public void setRoom1(Room room1) {
+        this.room1 = room1;
+    }
+
+    public void setRoom2(Room room2) {
+        this.room2 = room2;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }   
     
 }

@@ -9,7 +9,6 @@ import com.mycompany.escaperoom.Game;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,14 +33,21 @@ public class Utils {
         return set;
     }
     
-    //dividi in tokenizer e rimozione stopword
-    public static List<String> parseString(String string, Set<String> stopwords) {
+
+    public static List<String> tokenizer(String string) {
         List<String> tokens = new ArrayList<>();
         String[] split = string.toLowerCase().split("\\s+");
-        for (String t : split) {
-            if (!stopwords.contains(t)) {
-                tokens.add(t);
-            }
+        
+        for (String t : split)
+            tokens.add(t);
+
+        return tokens;
+    }
+    
+    public static List<String> removeStopword(List<String> tokens, Set<String> stopwords) {
+        for (String t : tokens) {
+            if (stopwords.contains(t))
+                tokens.remove(t);
         }
         return tokens;
     }

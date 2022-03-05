@@ -30,7 +30,10 @@ public class ContainerObject extends MyObject{
     }
 
     public List<MyObject> getObjects() {
-        return Objects;
+        if(isOpenable() && isOpen() || !isOpenable())
+            return Objects;
+        else
+            return null;
     }
 
     public void setObjects(List<MyObject> Objects) {

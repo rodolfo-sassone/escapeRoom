@@ -10,5 +10,11 @@ package com.mycompany.escaperoom;
  * @author Rodolfo Pio Sassone
  */
 public enum CommandType {
-    NORD, SUD, OVEST, EST, HELP, INVENTARY, PICK_UP, LOOK_AT, OPEN, READ, ILLUMINATE, UNLOCK, INSERT, EMPTY, TURN_ON, CALL, OVERLAP, EXTRACT, TIE, THROW, PULL, WHO, SWITCH, EXIT, UNSCREW
+    NORD, SUD, OVEST, EST, HELP, EXIT, INVENTARY, WHO,              //Only command
+    PICK_UP, READ, ILLUMINATE, EXTRACT, EMPTY, TURN_ON, UNSCREW, PULL,       //One object
+    OPEN, UNLOCK,                                                   //One object or One door
+    INSERT, OVERLAP, TIE, THROW,                           //Two objects
+    SWITCH,                                                         //One prisoner
+    CALL,                                                           //String
+    LOOK_AT                                                         //Only command or One object or One door or One room
 }

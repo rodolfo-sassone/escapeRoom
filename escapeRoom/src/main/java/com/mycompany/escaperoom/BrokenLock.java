@@ -10,11 +10,9 @@ package com.mycompany.escaperoom;
  * @author Rodolfo Pio Sassone
  */
 public class BrokenLock extends Lock{
-    
-    private final int scoreValue;
 
     public BrokenLock(int scoreValue) {
-        this.scoreValue = scoreValue;
+        super(scoreValue);
     }
     
     public boolean unlock() {

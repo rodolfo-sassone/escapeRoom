@@ -12,16 +12,10 @@ package com.mycompany.escaperoom;
 public class CombinationLock extends Lock{
     
     private final String combination;
-    
-    private final int scoreValue;
 
     public CombinationLock(String combination, int scoreValue) {
+        super(scoreValue);
         this.combination = combination;
-        this.scoreValue = scoreValue;
-    }
-    
-    public int getScoreValue() {
-        return scoreValue;
     }
     
     public boolean unlock(String c) {

@@ -46,6 +46,19 @@ public class MyObject implements Serializable{
         this.blocked = null;
     }
 
+        public MyObject(int id, String name, String description, int keyValue) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.openable = false;
+        this.pushable = false;
+        this.pickupable = true;
+        this.open = false;
+        this.push = false;
+        this.keyValue = keyValue;
+        this.blocked = null;
+    }
+    
     public MyObject(int id, String name, String description, boolean openable, boolean pushable, boolean pickupable, boolean open, boolean push, int keyValue, Lock Blocked) {
         this.id = id;
         this.name = name;
@@ -62,6 +75,15 @@ public class MyObject implements Serializable{
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
 
     public boolean isOpenable() {
         return openable;

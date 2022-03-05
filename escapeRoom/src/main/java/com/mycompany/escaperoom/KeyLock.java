@@ -14,13 +14,16 @@ public class KeyLock extends Lock{
     private final int keyValue;
     
     public KeyLock(int k) {
+        super(k);
         keyValue = k;
     }
     
+    
     public boolean unlock(MyObject k) {
-        if(k.getKeyValue() == keyValue)
-            setLocked(false);
-        
+            if(k.getKeyValue() == keyValue)
+                setLocked(false);
+
         return isUnlocked();
     }
+
 }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Room implements Serializable{
     
-    private final int id;   //controlla se da problemi con Integer
+    private final int id;
     
     private final String name;
     
@@ -101,7 +101,7 @@ public class Room implements Serializable{
     public void setUnexplored(boolean unexplored) {
         this.unexplored = unexplored;
     }
-    
+
     public boolean isUnexplored() {
         return unexplored;
     }
@@ -114,7 +114,7 @@ public class Room implements Serializable{
         this.setUnexplored(false);
         return desc;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -136,32 +136,82 @@ public class Room implements Serializable{
         hash = 59 * hash + this.id;
         return hash;
     }
-    
+
     public Room getNorthRoom() {
-        if(this.getNorthDoor().getRoom1().equals(this))
-            return this.getNorthDoor().getRoom2();
-        else
-            return this.getNorthDoor().getRoom1();
+        Room room = null;
+
+        if (getNorthDoor() != null) 
+        {
+            if (getNorthDoor().getRoom1().equals(this)) 
+                room = getNorthDoor().getRoom2();
+            else 
+                room = getNorthDoor().getRoom1();
+        }
+
+        return room;
     }
-    
+
     public Room getSouthRoom() {
-        if(this.getSouthDoor().getRoom1().equals(this))
-            return this.getSouthDoor().getRoom2();
-        else
-            return this.getSouthDoor().getRoom1();
+        Room room = null;
+
+        if (getSouthDoor() != null) 
+        {
+            if (this.getSouthDoor().getRoom1().equals(this)) 
+                room = this.getSouthDoor().getRoom2();
+            else 
+                room = this.getSouthDoor().getRoom1();
+        }
+
+        return room;
     }
-   
+
     public Room getWestRoom() {
-        if(this.getWestDoor().getRoom1().equals(this))
-            return this.getWestDoor().getRoom2();
-        else
-            return this.getWestDoor().getRoom1();
-    }    
+        Room room = null;
+
+        if(getWestDoor() != null)
+        {
+            if (this.getWestDoor().getRoom1().equals(this))
+                room = this.getWestDoor().getRoom2();
+            else
+                room = this.getWestDoor().getRoom1();
+        }
+        
+        return room;
+    }
 
     public Room getEastRoom() {
-        if(this.getEastDoor().getRoom1().equals(this))
+        Room room = null;
+         
+        if(getEastDoor() != null)
+        {
+        if (this.getEastDoor().getRoom1().equals(this))
             return this.getEastDoor().getRoom2();
         else
             return this.getEastDoor().getRoom1();
+        }
+        
+        return room;
+    }
+
+    public List<Room> getNextRooms() {
+        List<Room> nr = new ArrayList();
+        
+        nr.add(getNorthRoom());
+        nr.add(getSouthRoom());
+        nr.add(getWestRoom());
+        nr.add(getEastRoom());
+        
+        return nr;
+    }
+    
+    public List<Door> getDoors() {
+        List<Door> doors = new ArrayList();
+        
+        doors.add(getNorthDoor());
+        doors.add(getSouthDoor());
+        doors.add(getWestDoor());
+        doors.add(getEastDoor());
+        
+        return doors;
     }
 }

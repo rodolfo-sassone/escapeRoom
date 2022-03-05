@@ -28,29 +28,31 @@ public class BigKeyLock extends Lock{
         this.locks = locks;
     }
     
-    public boolean unlock(MyObject k){
+    public int unlock(MyObject k){
+        int score = -1;
         boolean unlock = false;
         
-        Iterator<KeyLock> it = locks.iterator();
-        while(it.hasNext() && (unlock == false))
+        for(KeyLock l : this.getLocks())
         {
-            KeyLock l = it.next();
             if(l.isLocked())
                 unlock = l.unlock(k);
-        }
-        
-        //se abbiamo sbloccato una serratura controlliamo se abbiamo aperto la porta
-        if(unlock)
-        {
-            if(locks.stream().allMatch(l -> l.isUnlocked()))
+            if(unlock)
+                score = l.getScore();
+            
+            if (locks.stream().allMatch(kl -> kl.isUnlocked()))
                 setLocked(false);
         }
+        
 
-        return unlock;
+        return score;
     }
     
     public int unlockCounter() {
         return (int) locks.stream().filter(l -> l.isUnlocked()).count(); 
+    }
+    
+    public int numberOfLocks() {
+        return (int) locks.stream().count();
     }
     
 }
