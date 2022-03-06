@@ -6,10 +6,8 @@
 package com.mycompany.escaperoom;
 
 import com.mycompany.utils.Utils;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -772,9 +769,7 @@ public class Game implements Serializable{
                 
             }while(!exit);
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
         
