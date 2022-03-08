@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.escaperoom;
+package com.mycompany.parser;
 
+import com.mycompany.escaperoom.Door;
+import com.mycompany.escaperoom.MyObject;
+import com.mycompany.escaperoom.Prisoner;
+import com.mycompany.escaperoom.Room;
 import com.mycompany.utils.Utils;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +22,7 @@ import java.util.Set;
 public class Parser {
     
 
-    public Parser(Set<String> stopword) {
+    public Parser() {
     }
     
     public ParserOutput parse(String s, List<MyObject> objects, Room currentRoom, List<Room> rooms) {
@@ -65,9 +69,6 @@ public class Parser {
                                     po = new ParserOutput(cmdType, door);
                             }
                         }
-                        /*Accettiamo come se lookat stesse da solo??
-                        if(obj == null && door == null && room == null)
-                            po = new ParserOutput(cmdType, currentRoom);*/
                     }
                 }
                 else if (cmdType.ordinal() >= CommandType.PICK_UP.ordinal() && cmdType.ordinal() <= CommandType.PULL.ordinal() && it.hasNext())

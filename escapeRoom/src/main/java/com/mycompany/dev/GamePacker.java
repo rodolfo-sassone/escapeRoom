@@ -45,6 +45,7 @@ public class GamePacker {
             outStream.writeObject(g);
             
             outStream.close();
+            outFile.close();
         } catch (IOException ex) {
             success = false;
             Logger.getLogger(GamePacker.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +94,18 @@ public class GamePacker {
         List <MyObject> l2 = new ArrayList();
         MyObject cabinet = new MyObject(19, "armadietti", "è un armadio in metallo, grigio; composto da due ante indipendenti. L'antaSinistra e l'antaDestra entrambe chiuse da lucchetti a combinazione");
         //TODO vedi come rappresentare
-        MyObject matrix = new MyObject(26, "matrice", "", 0);
+        MyObject matrix = new MyObject(26, "matrice","+--------+--------+--------+--------+--------+\n"
+                                                    +"| police |   10   |   21   |   25   |   55   | ________\n"
+                                                    +"+--------+--------+--------+--------+--------+\n"
+                                                    +"|   55   | police |   25   |   10   |   21   | ________\n"
+                                                    +"+--------+--------+--------+--------+--------+\n"
+                                                    +"|   10   |   55   |   10   |   21   |   25   | ________\n"
+                                                    +"+--------+--------+--------+--------+--------+\n"
+                                                    +"|   25   |   21   |   55   | police |   10   | ________\n"
+                                                    +"+--------+--------+--------+--------+--------+\n"
+                                                    +"|   21   |   25   |   10   |   55   | police | ________\n"
+                                                    +"+--------+--------+--------+--------+--------+\n"
+                                                    +" ________ ________ ________ ________ ________   TOTALE", 0);
         l2.add(matrix);
         MyObject cylinder = new ContainerObject(l2, 23, "cilindro", "cilindro in metallo chiuso da un lucchetto a combinazione", true, false, true, false, false, 0, new CombinationLock("101", 0));
         
@@ -214,7 +226,7 @@ public class GamePacker {
         
         Game game = new Game(rl, Prisoner.RONNY, positions);
 
-        if(GamePacker.pack(game, "res/game"))
+        if(GamePacker.pack(game, "res/game.dat"))
             System.out.println("File creato con successo!");
         else
             System.out.println("File non creato o non creato correttamente.");

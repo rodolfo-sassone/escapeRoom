@@ -5,11 +5,13 @@
  */
 package com.mycompany.escaperoom;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rodolfo Pio Sassone
  */
-public class CombinationLock extends Lock{
+public class CombinationLock extends Lock {
     
     private final String combination;
 

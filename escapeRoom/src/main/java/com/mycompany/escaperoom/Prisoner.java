@@ -5,10 +5,12 @@
  */
 package com.mycompany.escaperoom;
 
+import java.io.Serializable;
+
 /**
  *
  * @author umbro
  */
-public enum Prisoner {
+public enum Prisoner implements Serializable{
     LUKE, NIKY, RIKY, RONNY
 }

@@ -5,15 +5,16 @@
  */
 package com.mycompany.escaperoom;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Rodolfo Pio Sassone
  */
-public class ContainerObject extends MyObject{
+public class ContainerObject extends MyObject {
     
-    List<MyObject> Objects;
+    private List<MyObject> Objects;
 
     public ContainerObject(int id, String name, String description) {
         super(id, name, description);

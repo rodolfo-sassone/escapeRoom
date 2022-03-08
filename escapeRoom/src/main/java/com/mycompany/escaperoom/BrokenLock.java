@@ -5,11 +5,13 @@
  */
 package com.mycompany.escaperoom;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rodolfo Pio Sassone
  */
-public class BrokenLock extends Lock{
+public class BrokenLock extends Lock {
 
     public BrokenLock(int scoreValue) {
         super(scoreValue);

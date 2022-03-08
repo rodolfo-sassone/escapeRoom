@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.escaperoom;
+package com.mycompany.parser;
+
+import com.mycompany.escaperoom.Door;
+import com.mycompany.escaperoom.MyObject;
+import com.mycompany.escaperoom.Prisoner;
+import com.mycompany.escaperoom.Room;
 
 /**
  *

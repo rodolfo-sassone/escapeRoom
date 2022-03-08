@@ -5,11 +5,13 @@
  */
 package com.mycompany.escaperoom;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rodolfo Pio Sassone
  */
-public class KeyLock extends Lock{
+public class KeyLock extends Lock {
     
     private final int keyValue;
     

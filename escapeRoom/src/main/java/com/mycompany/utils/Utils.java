@@ -6,14 +6,11 @@
 package com.mycompany.utils;
 
 import com.mycompany.escaperoom.Game;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,17 +19,6 @@ import java.util.Set;
  * @author pierpaolo
  */
 public class Utils {
-
-    public static Set<String> loadFileListInSet(File file) throws IOException {
-        Set<String> set = new HashSet<>();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        while (reader.ready()) {
-            set.add(reader.readLine().trim().toLowerCase());
-        }
-        reader.close();
-        return set;
-    }
-    
 
     public static List<String> tokenizer(String string) {
         List<String> tokens = new ArrayList<>();
@@ -62,6 +48,7 @@ public class Utils {
             ObjectInputStream inStream = new ObjectInputStream(inFile);
             g = (Game) inStream.readObject();
             inStream.close();
+            inFile.close();
         }
         
         return g;

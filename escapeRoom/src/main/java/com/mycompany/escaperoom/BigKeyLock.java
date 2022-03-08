@@ -5,7 +5,7 @@
  */
 package com.mycompany.escaperoom;
 
-import java.util.Iterator;
+import java.io.Serializable;
 import java.util.List;
 
 /**
