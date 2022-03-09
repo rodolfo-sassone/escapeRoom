@@ -12,7 +12,6 @@ import com.mycompany.escaperoom.Room;
 import com.mycompany.utils.Utils;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -166,6 +165,8 @@ public class Parser {
             cmdType = CommandType.EXIT;
         else if(t.equalsIgnoreCase("who") || t.equalsIgnoreCase("chi") || t.equalsIgnoreCase("w"))
             cmdType = CommandType.WHO;
+        else if(t.equalsIgnoreCase("dove"))
+             cmdType = CommandType.WHERE;
         else if(t.equalsIgnoreCase("inventario") || t.equalsIgnoreCase("inventary") || t.equalsIgnoreCase("i"))
             cmdType = CommandType.INVENTARY;
         else if(t.equalsIgnoreCase("esamina") || t.equalsIgnoreCase("guarda"))

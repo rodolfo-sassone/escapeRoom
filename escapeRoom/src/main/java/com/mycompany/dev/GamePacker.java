@@ -145,6 +145,13 @@ public class GamePacker {
         MyObject window = new MyObject(35, "finestra", "Finestra niente di che, oltre la finestra invece, appese al muro di fronte, ci sono 3 manette, la prima è aperta quasi a formare un 3, la seconda è chiusa e la terza è come la prima.\n"
                 + "Sotto ad ogni manetta ci sono rispettivametne un quadrato, un rombo e un rettangolo.\n"
                 + "In basso, invece, vicino la porta c'è un tubo.");
+        MyObject wc = new MyObject(36, "gabinetto", "Un gabinetto come tanti, un po' ti somiglia anche");
+        MyObject sink = new MyObject(37, "lavandino", "Un normalissimo lavandino. L'acqua non c'è quindi avete la stessa utilità praticamente.");
+        MyObject airCondit = new MyObject(38, "condizionatore", "Un vecchio condizionatore, fa aria fredda ma fa già freddo, le manopole non funzionano.\n"
+                + "Potevi finire in una semplice cella e invece sei finito in una cella frigorifera; che culo!");
+        MyObject normalBench = new MyObject(39, "panca", "Panca in legno attaccata al muro.");
+        MyObject coatRak = new MyObject(40, "attaccapanni", "Un attaccapanni. Cosa ti aspetti da un attaccapanni?");
+        
         //Doors
         Door c1 = new Door(new CombinationLock("2618", 20), "Porta di una cella fatta interamente di sbarre, puoi gurdare nell'atrio o infilare un braccio tra le sbarre e utilizzare oggetti lì vicino.\nNon ha una serratura, ma è comunque bloccata");
         Door c2 = new Door(new BrokenLock(5), "Porta di una cella fatta interamente di sbarre, puoi gurdare nell'atrio. È chiusa a chiave. Agitandola alcune sbarre fanno rumore");
@@ -163,24 +170,33 @@ public class GamePacker {
         Door win = new Door(new BigKeyLock(kll), "Porta in ferro, solida, solidissima, ha solo una finestra in alto al centro. È bloccata da 4 chiavi.");
         
         //Rooms
-        Room cell1 = new Room(1, "cella1", "una piccola cella, c'è una panca di legno, un lavandino e un gabinetto. C'è una porta ad est; è a sbarre.", null, null, null, c1);
+        List <MyObject> lcell1 = new ArrayList();
+        lcell1.add(wc);
+        lcell1.add(sink);
+        lcell1.add(normalBench);
+        Room cell1 = new Room(1, "cella1", "una piccola cella, c'è una panca di legno, un lavandino e un gabinetto. C'è una porta ad est; è a sbarre.", null, null, null, c1, lcell1);
         cell1.getAvailObj().add(keypad);
         cell1.getAvailObj().add(flashlight);
         
-        List <MyObject> l7 = new ArrayList();
+        List <MyObject> lcell2 = new ArrayList();
         
-        l7.add(bar);
-        l7.add(boot2);
-        l7.add(bench);
-        Room cell2 = new Room(2, "cella2", "una piccola cella, c'è una panca di legno, un lavandino, un condizionatore e un gabinetto. C'è una porta a nord; è a sbarre.", c2, null, null, null, l7);
+        lcell2.add(bar);
+        lcell2.add(boot2);
+        lcell2.add(bench);
+        lcell2.add(wc);
+        lcell2.add(sink);
+        lcell2.add(airCondit);
+        Room cell2 = new Room(2, "cella2", "una piccola cella, c'è una panca di legno, un lavandino, un condizionatore e un gabinetto. C'è una porta a nord; è a sbarre.", c2, null, null, null, lcell2);
         
-        List <MyObject> l8 = new ArrayList();
+        List <MyObject> lcell3 = new ArrayList();
         
-        l8.add(bench);
-        l8.add(boot3);
-        l8.add(hole);
-        l8.add(squares);
-        Room cell3 = new Room(3, "cella3", "una piccola cella, c'è una panca di legno, un lavandino e un gabinetto.  I muri di questa cella non se la passano benissimo: quadrati disegnati e qualche buchetto… C'è una porta ad ovest; è a sbarre.", null, null, c3, null, l8);
+        lcell3.add(bench);
+        lcell3.add(boot3);
+        lcell3.add(hole);
+        lcell3.add(squares);
+        lcell3.add(wc);
+        lcell3.add(sink);
+        Room cell3 = new Room(3, "cella3", "una piccola cella, c'è una panca di legno, un lavandino e un gabinetto.  I muri di questa cella non se la passano benissimo: quadrati disegnati e qualche buchetto... C'è una porta ad ovest; è a sbarre.", null, null, c3, null, lcell3);
         
         List <MyObject> l9 = new ArrayList();
         l9.add(key1);
@@ -193,10 +209,11 @@ public class GamePacker {
         l9.add(box);
         l9.add(chest);
         l9.add(window);
+        l9.add(coatRak);
         Room hall = new Room(4, "atrio", "L'atrio dove il secondino controlla a sud cella 2, a ovest cella 1 e ad est cella 3. Poi quando vuole fumare una sigaretta esce dalla porta a nord.\n"
                 + "Ora il secondino non c'è, ha lasciato il giubbotto sull'attaccapanni vicino la porta a nord, alla destra del quale c'è una chiave (chiave1) bloccata al muro da un lucchetto a combinazione.\n"
                 + "Nell'angolo a nord est ci sono due armadietti, nell'angolo a sud est c'è una cassetta a muro, a sud ovest proprio accanto a cella1 c'è un tastierino numerico\n"
-                + "al quale è lagata una piccola torcia e nell'angolo a nord ovest c'è uno scrigno a muro con il simbolo della police.", win, c2, c1, c3, l9);
+                + "al quale è lagata una piccola torcia e nell'angolo a nord ovest c'è uno scrigno a muro con la scitta \"police\".", win, c2, c1, c3, l9);
         
         hall.getAvailObj().add(tube);
         hall.getAvailObj().add(bar);
