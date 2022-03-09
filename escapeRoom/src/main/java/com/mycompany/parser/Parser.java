@@ -5,10 +5,7 @@
  */
 package com.mycompany.parser;
 
-import com.mycompany.escaperoom.Door;
-import com.mycompany.escaperoom.MyObject;
-import com.mycompany.escaperoom.Prisoner;
-import com.mycompany.escaperoom.Room;
+import com.mycompany.type.*;
 import com.mycompany.utils.Utils;
 import java.util.Iterator;
 import java.util.List;

@@ -5,6 +5,8 @@
  */
 package com.mycompany.escaperoom;
 
+import com.mycompany.type.*;
+import com.mycompany.utils.ASCIIArtGenerator;
 import com.mycompany.parser.ParserOutput;
 import java.io.PrintStream;
 import java.io.Serializable;
@@ -14,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.*;
 
@@ -929,10 +933,24 @@ public class Game implements Serializable{
     }
     
     private void celebration(PrintStream out) {
-        if (score == 100)
-            out.println("Congratulazioni hai vinto ed hai completato tutto il gioco!!!\n"
-                    + "Tu ed i tuoi amici ora siete liberi!");
-        else
-            out.println("Hai vinto si, ma hai lasciato indietro degli amici. Sei una merda.");
+        ASCIIArtGenerator artGen = new ASCIIArtGenerator();
+        try
+        {
+            if (score == 100)
+            {
+                artGen.printTextArt("     WIN", ASCIIArtGenerator.ART_SIZE_LARGE,  ASCIIArtGenerator.ASCIIArtFont.ART_FONT_MONO, "#");
+                out.println("Congratulazioni hai vinto ed hai completato tutto il gioco!!!\n"
+                        + "Tu ed i tuoi amici ora siete liberi!");
+            }
+            else
+            {
+                artGen.printTextArt("Sei una merda", ASCIIArtGenerator.ART_SIZE_LARGE,  ASCIIArtGenerator.ASCIIArtFont.ART_FONT_MONO, "@");
+                out.println("Hai vinto si, ma hai lasciato indietro degli amici. Sei una merda.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            
+        }
     }
 }

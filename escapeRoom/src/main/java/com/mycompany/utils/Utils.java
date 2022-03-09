@@ -38,7 +38,7 @@ public class Utils {
         return tokens;
     }
     
-    public static Game gameLoader(File f) throws IOException, ClassNotFoundException {
+    public static Game gameLoader(File f) throws IOException, ClassNotFoundException, Exception {
         
         Game g = null;
         
@@ -50,6 +50,8 @@ public class Utils {
             inStream.close();
             inFile.close();
         }
+        else
+            throw new Exception("File non trovato");
         
         return g;
     }

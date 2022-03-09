@@ -7,6 +7,7 @@ package com.mycompany.escaperoom;
 
 
 
+import com.mycompany.utils.ASCIIArtGenerator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.fusesource.jansi.Ansi.Color.*;

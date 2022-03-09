@@ -5,16 +5,8 @@
  */
 package com.mycompany.dev;
 
-import com.mycompany.escaperoom.BigKeyLock;
-import com.mycompany.escaperoom.BrokenLock;
-import com.mycompany.escaperoom.CombinationLock;
-import com.mycompany.escaperoom.ContainerObject;
-import com.mycompany.escaperoom.Door;
+import com.mycompany.type.*;
 import com.mycompany.escaperoom.Game;
-import com.mycompany.escaperoom.KeyLock;
-import com.mycompany.escaperoom.MyObject;
-import com.mycompany.escaperoom.Prisoner;
-import com.mycompany.escaperoom.Room;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +31,7 @@ public class GamePacker {
             File f = new File(path);
             f.createNewFile();
             
-            FileOutputStream outFile = new FileOutputStream(path);
+            FileOutputStream outFile = new FileOutputStream(f);
             ObjectOutputStream outStream = new ObjectOutputStream(outFile);
             
             outStream.writeObject(g);

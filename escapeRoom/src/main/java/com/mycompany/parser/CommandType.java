@@ -10,7 +10,7 @@ package com.mycompany.parser;
  * @author Rodolfo Pio Sassone
  */
 public enum CommandType {
-    NORD, SUD, OVEST, EST, HELP, EXIT, INVENTARY, WHERE, WHO,                          //Only command
+    NORD, SUD, OVEST, EST, HELP, EXIT, INVENTARY, WHERE, WHO,                   //Only command
     PICK_UP, READ, ILLUMINATE, EXTRACT, EMPTY, TURN_ON, UNSCREW, PULL,          //One object
     OPEN, UNLOCK,                                                               //One object or One door
     INSERT, OVERLAP, TIE, THROW,                                                //Two objects

@@ -5,7 +5,9 @@
  */
 package com.mycompany.escaperoom;
 
-import com.mycompany.escaperoom.ASCIIArtGenerator.ASCIIArtFont;
+import com.mycompany.type.MyObject;
+import com.mycompany.utils.ASCIIArtGenerator;
+import com.mycompany.utils.ASCIIArtGenerator.ASCIIArtFont;
 import com.mycompany.parser.Parser;
 import com.mycompany.parser.ParserOutput;
 import java.util.ArrayList;
