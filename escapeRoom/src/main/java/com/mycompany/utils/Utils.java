@@ -51,7 +51,7 @@ public class Utils {
             inFile.close();
         }
         else
-            throw new Exception("File non trovato");
+            throw new Exception("File " + f.getPath() + " non trovato");
         
         return g;
     }

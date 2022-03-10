@@ -24,11 +24,10 @@ import java.util.logging.Logger;
  */
 public class GamePacker {
     
-    public static boolean pack(Game g, String path) {
+    public static boolean pack(Game g, File f) {
         
         boolean success = true;
         try {
-            File f = new File(path);
             f.createNewFile();
             
             FileOutputStream outFile = new FileOutputStream(f);
@@ -50,6 +49,9 @@ public class GamePacker {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        File f = new File("../res/game.dat");
+        
         // Objects
         MyObject key1 = new MyObject(1, "chiave1", "sembra essere della porta di uscita", false, false, true, false, false, 18, (new CombinationLock("378", 0)));
         MyObject key2 = new MyObject(2, "chiave2", "sembra essere della porta di uscita", 24);
@@ -234,8 +236,8 @@ public class GamePacker {
         rl.add(cell3);
         
         Game game = new Game(rl, Prisoner.RONNY, positions);
-
-        if(GamePacker.pack(game, "res/game.dat"))
+        
+        if(GamePacker.pack(game, f))
             System.out.println("File creato con successo!");
         else
             System.out.println("File non creato o non creato correttamente.");
