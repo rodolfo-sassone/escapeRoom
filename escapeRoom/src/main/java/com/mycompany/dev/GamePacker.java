@@ -50,7 +50,7 @@ public class GamePacker {
      */
     public static void main(String[] args) {
         
-        File f = new File("../res/game.dat");
+        File f = new File("./res/game.dat");
         
         // Objects
         MyObject key1 = new MyObject(1, "chiave1", "sembra essere della porta di uscita", false, false, true, false, false, 18, (new CombinationLock("378", 0)));

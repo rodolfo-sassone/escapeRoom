@@ -6,7 +6,6 @@
 package com.mycompany.server;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 
 /**

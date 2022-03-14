@@ -36,111 +36,108 @@ public class Parser {
         {
             if (cmdType.ordinal() >= CommandType.NORD.ordinal() && cmdType.ordinal() <= CommandType.WHO.ordinal())
                 po = new ParserOutput(cmdType);
-            else
-            {   
-                if (cmdType == CommandType.LOOK_AT && !it.hasNext())
-                    po = new ParserOutput(cmdType, currentRoom);
-                else if (cmdType == CommandType.LOOK_AT && it.hasNext())
-                {
-                    MyObject obj = null;
-                    Room room = null;
-                    Door door = null;
-                    
-                    while(it.hasNext() && (obj == null && room == null && door == null))
-                    {
-                        String t = it.next();
+            else if (cmdType == CommandType.LOOK_AT && !it.hasNext())
+                po = new ParserOutput(cmdType, currentRoom);
+            else if (cmdType == CommandType.LOOK_AT && it.hasNext())
+            {
+                MyObject obj = null;
+                Room room = null;
+                Door door = null;
 
-                        obj = checkForObject(t, objects);
-                        if(obj != null)
-                            po = new ParserOutput(cmdType, obj);
-                        else
-                        {
-                            room = checkForRoom(t, rooms);
-                            if(room != null)
-                                po = new ParserOutput(cmdType, room);
-                            else
-                            {
-                                door = checkForDoor(t, currentRoom);
-                                if(door != null)
-                                    po = new ParserOutput(cmdType, door);
-                            }
-                        }
-                    }
-                }
-                else if (cmdType.ordinal() >= CommandType.PICK_UP.ordinal() && cmdType.ordinal() <= CommandType.PULL.ordinal() && it.hasNext())
+                while(it.hasNext() && (obj == null && room == null && door == null))
                 {
-                    MyObject obj = null;
-                    
-                    while(it.hasNext() && obj == null)
-                    {
-                        String t = it.next();
-                        
-                        obj = checkForObject(t, objects);
-                    }
-                    
+                    String t = it.next();
+
+                    obj = checkForObject(t, objects);
                     if(obj != null)
                         po = new ParserOutput(cmdType, obj);
-                }
-                else if (cmdType == CommandType.OPEN || cmdType == CommandType.UNLOCK)
-                {
-                    MyObject obj = null;
-                    Door door = null;
-                    
-                    while(it.hasNext() && (obj == null && door == null))
+                    else
                     {
-                        String t = it.next();
-                        
-                        obj = checkForObject(t, objects);
-                        if(obj != null)
-                            po = new ParserOutput(cmdType, obj);
+                        room = checkForRoom(t, rooms);
+                        if(room != null)
+                            po = new ParserOutput(cmdType, room);
                         else
                         {
-                            door = checkForDoor(t, currentRoom); //accept both "portanord" and "porta nord" and therefore "nord" alone.
+                            door = checkForDoor(t, currentRoom);
                             if(door != null)
                                 po = new ParserOutput(cmdType, door);
                         }
                     }
                 }
-                else if(cmdType.ordinal() >= CommandType.INSERT.ordinal() && cmdType.ordinal() <= CommandType.THROW.ordinal())
+            }
+            else if (cmdType.ordinal() >= CommandType.PICK_UP.ordinal() && cmdType.ordinal() <= CommandType.PULL.ordinal() && it.hasNext())
+            {
+                MyObject obj = null;
+
+                while(it.hasNext() && obj == null)
                 {
-                    MyObject obj1 = null;
-                    MyObject obj2 = null;
-                    
-                    while(it.hasNext() && (obj1 == null || obj2 == null))
-                    {
-                        String t = it.next();
-                        
-                        if(obj1 == null)
-                            obj1 = checkForObject(t, objects);
-                        else
-                            obj2 = checkForObject(t, objects);
-                    }
-                    
-                    if(obj1 != null && obj2 != null)
-                        po = new ParserOutput(cmdType, obj1, obj2);
+                    String t = it.next();
+
+                    obj = checkForObject(t, objects);
                 }
-                else if (cmdType == CommandType.SWITCH)
+
+                if(obj != null)
+                    po = new ParserOutput(cmdType, obj);
+            }
+            else if (cmdType == CommandType.OPEN || cmdType == CommandType.UNLOCK)
+            {
+                MyObject obj = null;
+                Door door = null;
+
+                while(it.hasNext() && (obj == null && door == null))
                 {
-                    Prisoner p = null;
-                    
-                    while(it.hasNext() && p == null)
+                    String t = it.next();
+
+                    obj = checkForObject(t, objects);
+                    if(obj != null)
+                        po = new ParserOutput(cmdType, obj);
+                    else
                     {
-                        String t = it.next();
-                        
-                        p = checkForPrisoner(t);
+                        door = checkForDoor(t, currentRoom); //accept both "portanord" and "porta nord" and therefore "nord" alone.
+                        if(door != null)
+                            po = new ParserOutput(cmdType, door);
                     }
-                    
-                    if(p != null)
-                        po = new ParserOutput(cmdType, p);
-                }
-                else if (cmdType == CommandType.CALL);
-                {
-                    if(it.hasNext())
-                        po = new ParserOutput(cmdType, it.next());
                 }
             }
+            else if(cmdType.ordinal() >= CommandType.INSERT.ordinal() && cmdType.ordinal() <= CommandType.THROW.ordinal())
+            {
+                MyObject obj1 = null;
+                MyObject obj2 = null;
+
+                while(it.hasNext() && (obj1 == null || obj2 == null))
+                {
+                    String t = it.next();
+
+                    if(obj1 == null)
+                        obj1 = checkForObject(t, objects);
+                    else
+                        obj2 = checkForObject(t, objects);
+                }
+
+                if(obj1 != null && obj2 != null)
+                    po = new ParserOutput(cmdType, obj1, obj2);
+            }
+            else if (cmdType == CommandType.SWITCH)
+            {
+                Prisoner p = null;
+
+                while(it.hasNext() && p == null)
+                {
+                    String t = it.next();
+
+                    p = checkForPrisoner(t);
+                }
+
+                if(p != null)
+                    po = new ParserOutput(cmdType, p);
+            }
+            else if (cmdType == CommandType.CALL)
+            {
+                if(it.hasNext())
+                    po = new ParserOutput(cmdType, it.next());
+            }
         }
-        
+
         return po;
     }
 

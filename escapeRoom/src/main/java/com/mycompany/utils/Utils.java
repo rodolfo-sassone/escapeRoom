@@ -22,7 +22,7 @@ public class Utils {
 
     public static List<String> tokenizer(String string) {
         List<String> tokens = new ArrayList<>();
-        String[] split = string.toLowerCase().split("\\s+");
+        String[] split = string.toLowerCase().split("[\\s+']");
         
         for (String t : split)
             tokens.add(t);

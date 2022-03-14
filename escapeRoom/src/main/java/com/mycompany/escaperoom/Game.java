@@ -5,6 +5,7 @@
  */
 package com.mycompany.escaperoom;
 
+import com.mycompany.parser.Parser;
 import com.mycompany.type.*;
 import com.mycompany.utils.ASCIIArtGenerator;
 import com.mycompany.parser.ParserOutput;
@@ -20,7 +21,6 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -770,6 +770,39 @@ public class Game implements Serializable{
         }
     }
     
+    public void play(Parser p) throws Exception {
+        Scanner in = new Scanner(System.in);
+            boolean exit = false;
+            Thread timer = presentation(in);
+            
+            ParserOutput po = null;
+            List<MyObject> objects = new ArrayList();
+            do
+            {
+                objects.addAll(getInventary());
+                objects.addAll(getCurrentRoom().getAvailObj());
+                
+                String command = "";
+                
+                System.out.print(ansi().fg(CYAN));
+                
+                while(command.isEmpty() && timer.isAlive())
+                    command = in.nextLine();
+                
+                 System.out.print(ansi().fg(YELLOW));
+                
+                if(timer.isAlive())
+                {
+                    po = p.parse(command, objects, getCurrentRoom(), getRooms());
+
+                    exit = nextMove(po, System.out); 
+                }
+                
+                objects.removeAll(objects);
+            }while(!exit && timer.isAlive());
+            
+    }
+    
     public Thread presentation(Scanner in) throws Exception {
         Thread timer = new Lose();
         timer.setDaemon(true);
@@ -801,8 +834,9 @@ public class Game implements Serializable{
         return timer;
     }
     
-    public void saver(PrintStream out, Scanner in)
+    public void saver(PrintStream out)
     {
+        Scanner in = new Scanner(System.in);
         if(score > 0)
         {
             String ans = "";
