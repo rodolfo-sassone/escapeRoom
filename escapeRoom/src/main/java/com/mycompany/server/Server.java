@@ -28,7 +28,7 @@ public class Server {
     public static String INSERT = "INSERT INTO rank VALUES(?,?,?,?)";
     public static String MAXID = "SELECT MAX(id) FROM rank";
     public static String EMPTY_TABLE = "SELECT COUNT(*) FROM rank";
-    //public static String VIEW = "SELECT * FROM rank";
+    public static String VIEW = "SELECT * FROM rank";
     
     public static class ServerThread extends Thread {
 
@@ -42,6 +42,58 @@ public class Server {
             this.socket = socket;
             this.conn = conn;
         }
+        
+        
+        public void writeDB(Protocol msg) throws SQLException {
+            msg.setFlag(true);
+
+            PreparedStatement pstm = conn.prepareStatement(INSERT);
+
+            pstm.setString(2, msg.getUsername());
+            pstm.setInt(3, msg.getScore());
+            pstm.setString(4, msg.getDate());
+
+            synchronized (Lock) {
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(EMPTY_TABLE);
+
+                rs.next();
+                if (rs.getInt(1) == 0) {
+                    pstm.setInt(1, 1);
+                    stm.close();
+                } else {
+                    stm.close();
+                    stm = conn.createStatement();
+                    rs = stm.executeQuery(MAXID);
+                    rs.next();
+                    int nextId = rs.getInt(1) + 1;
+                    stm.close();
+                    rs.close();
+
+                    pstm.setInt(1, nextId);
+                }
+
+                pstm.executeUpdate();
+                pstm.close();
+            }
+        }
+        
+        public void readDB(ObjectOutputStream out) throws SQLException, IOException {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(VIEW);
+            
+            while(rs.next())
+            {
+                Protocol msg = new Protocol(rs.getString(2), rs.getInt(3), rs.getString(4));
+                
+                if(rs.isLast())
+                    msg.setFlag(true);
+                
+                out.writeObject(msg);
+            }
+            rs.close();
+            stm.close();
+        }
 
         @Override
         public void run() {
@@ -52,46 +104,17 @@ public class Server {
                 Protocol msg = (Protocol) in.readObject();
                 
                 try {
-                    msg.setFlag(true);
-                    
-                    PreparedStatement pstm = conn.prepareStatement(INSERT);
-                    
-                    pstm.setString(2, msg.getUsername());
-                    pstm.setInt(3, msg.getScore());
-                    pstm.setString(4, msg.getDate());
-                    
-                    synchronized(Lock) {
-                        Statement stm = conn.createStatement();
-                        ResultSet rs = stm.executeQuery(EMPTY_TABLE);
-                        
-                        rs.next();
-                        if(rs.getInt(1) == 0)
-                        {
-                            pstm.setInt(1, 1);
-                            stm.close();
-                        }
-                        else
-                        {
-                            stm.close();
-                            stm = conn.createStatement();
-                            rs = stm.executeQuery(MAXID);
-                            rs.next();
-                            int nextId = rs.getInt(1) + 1;
-                            stm.close();
-                            rs.close();
-                            
-                            pstm.setInt(1, nextId);
-                        }
-                        
-                        pstm.executeUpdate();
-                        pstm.close();
-                    }
+                    if(msg.getOp())
+                        writeDB(msg);
+                    else
+                        readDB(out);
                 } catch (SQLException ex) {
                     Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                     msg.setFlag(false);
                 } finally {
-                    out.writeObject(msg);
-                    System.out.println("Connessione con client " + socket.getInetAddress() + " terminata");
+                    if(msg.getOp())
+                        out.writeObject(msg);
+                    System.out.println("\tConnessione con client " + socket.getInetAddress() + " terminata");
                 }
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,18 +128,11 @@ public class Server {
     public static void main(String[] args) {
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:h2:../res/db/ranking");
+            Connection conn = DriverManager.getConnection("jdbc:h2:./res/db/ranking");
             
             Statement stm = conn.createStatement();
             stm.executeUpdate(CREATE_TABLE);
             stm.close();
-            
-            /*stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(VIEW);
-            
-            while(rs.next())
-                System.out.println(rs.getInt(1) + " | " + rs.getString(2) + " | " + rs.getInt(3) + " | " + rs.getString(4));
-            stm.close();*/
             
             ServerSocket s = new ServerSocket(6666);
             System.out.println("Avviato");

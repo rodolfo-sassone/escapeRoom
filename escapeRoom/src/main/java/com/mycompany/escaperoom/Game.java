@@ -817,9 +817,8 @@ public class Game implements Serializable{
         System.out.println();
         System.out.println("Benvenuto in Escape Room Alcatraz 1.0\n"
                 + "Sei stato imprigionato insieme ai tuoi 3 amici ad Alcatraz, il tuo obiettivo è uscire da li in 60 minuti.\n"
-                + "Ogni prigioniero ha una sua cella, puoi cambiare personaggio con il comando \"cambia\" seguito dal nome del prigioniero.\n"
-                + "I prigionieri sono: Luca, Niky, Riky e Ronny\n"
-                + "Ci saranno molti lucchetti. Quelli a combinazione, se non indicato diversamente, saranno combinazioni a tre cifre.\n"
+                + "altrimenti rimarrai chiuso qui per il resto dei tuoi giorni."
+                + "\n"
                 + "Buona Fortuna e occhio all'orologio!");
         System.out.println();
         System.out.println("Premi invio per iniziare e far partire il timer");
