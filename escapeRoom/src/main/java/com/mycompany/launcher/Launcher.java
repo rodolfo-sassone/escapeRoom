@@ -6,6 +6,8 @@
 package com.mycompany.launcher;
 
 import com.mycompany.server.Protocol;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,11 +15,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +30,34 @@ import java.util.logging.Logger;
  */
 public class Launcher extends javax.swing.JFrame {
 
+    private String[] command = null;
+
+    public String[] getCommand() {
+        return command;
+    }
+
+    public void setCommand(String[] command) {
+        this.command = command;
+    }
+    
+    protected class TerminalAction implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch(e.getActionCommand()) {
+                case "gnometerminal":
+                    command = new String[]{"gnome-terminal", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    break;
+                case "xterm":
+                    command = new String[]{"xterm", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    break;
+                case "konsole":
+                    command = new String[]{"konsole", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    break;
+            }
+        }
+    }
+    
     /**
      * Creates new form Launcher
      */
@@ -35,6 +68,16 @@ public class Launcher extends javax.swing.JFrame {
 
     private void myInit() {
         jLabel1.setIcon(new javax.swing.ImageIcon("./res/img/escapeRoom.png"));
+        
+        TerminalAction ta = new TerminalAction();
+        xterm.addActionListener(ta);
+        gnometerminal.addActionListener(ta);
+        konsole.addActionListener(ta);
+        
+        ButtonGroup terminals = new ButtonGroup();
+        terminals.add(xterm);
+        terminals.add(gnometerminal);
+        terminals.add(konsole);
     }
     
     /**
@@ -50,6 +93,12 @@ public class Launcher extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jDialog2 = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        xterm = new javax.swing.JRadioButton();
+        gnometerminal = new javax.swing.JRadioButton();
+        konsole = new javax.swing.JRadioButton();
+        confirm = new javax.swing.JButton();
         play = new javax.swing.JButton();
         help = new javax.swing.JButton();
         rank = new javax.swing.JButton();
@@ -66,6 +115,73 @@ public class Launcher extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextPane1);
 
         jDialog1.getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jDialog2.setTitle("Selezione terminale");
+        jDialog2.setResizable(false);
+
+        jLabel2.setText("<html>\nSeleziona un terminale fra questi. Se non hai installato nessuno di questi<br>\ninstallane uno e riavvia il gioco\n</html>");
+
+        xterm.setText("xterm");
+        xterm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xtermActionPerformed(evt);
+            }
+        });
+
+        gnometerminal.setText("gnome terminal");
+        gnometerminal.setActionCommand("gnometerminal");
+        gnometerminal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gnometerminalActionPerformed(evt);
+            }
+        });
+
+        konsole.setText("konsole");
+        konsole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                konsoleActionPerformed(evt);
+            }
+        });
+
+        confirm.setText("Conferma");
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(konsole, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gnometerminal)
+                            .addComponent(xterm)
+                            .addComponent(confirm)))
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gnometerminal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(xterm)
+                .addGap(15, 15, 15)
+                .addComponent(konsole, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(confirm)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EscapeRoom: Alcatraz");
@@ -292,22 +408,48 @@ public class Launcher extends javax.swing.JFrame {
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         Runtime rt = Runtime.getRuntime();
         try {
-            //String os = System.getProperty("os.name").toLowerCase();
+            String os = System.getProperty("os.name").toLowerCase();
 
-            //if(os.contains("win"))
-            rt.exec("cmd.exe /c start java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main");
+            if(os.contains("win"))
+                rt.exec("cmd.exe /c start java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main");
             //else if(os.contains("mac"))
-            //stackoverflow
-            /*else if(os.contains("nux"))
+            else if(os.contains("nux"))
             {
-                //(dialog o simili)seleziona un terminale tra questi: se non ne hai nessuno scaricane uno
+                jDialog2.pack();
+                jDialog2.setVisible(true);
             }
-            //else*/
-
+            else
+                JOptionPane.showMessageDialog(null, null, "Sistema operativo non supportato", ERROR);
         } catch (IOException ex) {
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_playActionPerformed
+
+    private void konsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konsoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_konsoleActionPerformed
+
+    private void gnometerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gnometerminalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gnometerminalActionPerformed
+
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        if (command != null)
+        {
+            try {
+                Runtime rt = Runtime.getRuntime();
+                rt.exec(command);
+            } catch (IOException ex) {
+                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, null, "Devi selezionare un terminale", ERROR);
+    }//GEN-LAST:event_confirmActionPerformed
+
+    private void xtermActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xtermActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xtermActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,16 +487,22 @@ public class Launcher extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirm;
+    private javax.swing.JRadioButton gnometerminal;
     private javax.swing.JButton help;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JRadioButton konsole;
     private javax.swing.JButton play;
     private javax.swing.JButton rank;
+    private javax.swing.JRadioButton xterm;
     // End of variables declaration//GEN-END:variables
 
     
