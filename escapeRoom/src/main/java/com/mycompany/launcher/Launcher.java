@@ -444,7 +444,7 @@ public class Launcher extends javax.swing.JFrame {
             }
         }
         else
-            JOptionPane.showMessageDialog(null, null, "Devi selezionare un terminale", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Devi selezionare un terminale", "Errore", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_confirmActionPerformed
 
     private void xtermActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xtermActionPerformed
