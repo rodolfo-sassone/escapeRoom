@@ -15,7 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -31,6 +30,8 @@ import javax.swing.JOptionPane;
 public class Launcher extends javax.swing.JFrame {
 
     private String[] command = null;
+    
+    private String os = System.getProperty("os.name").toLowerCase();
 
     public String[] getCommand() {
         return command;
@@ -46,13 +47,13 @@ public class Launcher extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             switch(e.getActionCommand()) {
                 case "gnometerminal":
-                    command = new String[]{"gnome-terminal", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    command = new String[]{"gnome-terminal", "--full-screen","-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
                     break;
                 case "xterm":
-                    command = new String[]{"xterm", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    command = new String[]{"xterm", "-fullscreen","-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
                     break;
                 case "konsole":
-                    command = new String[]{"konsole", "-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
+                    command = new String[]{"konsole", "--fullscreen","-e", "java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main"};
                     break;
             }
         }
@@ -67,6 +68,10 @@ public class Launcher extends javax.swing.JFrame {
     }
 
     private void myInit() {
+        
+        if(os.contains("nux"))
+            setPreferredSize(new java.awt.Dimension(985, 402));
+        
         jLabel1.setIcon(new javax.swing.ImageIcon("./res/img/escapeRoom.png"));
         
         TerminalAction ta = new TerminalAction();
@@ -408,8 +413,6 @@ public class Launcher extends javax.swing.JFrame {
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         Runtime rt = Runtime.getRuntime();
         try {
-            String os = System.getProperty("os.name").toLowerCase();
-
             if(os.contains("win"))
                 rt.exec("cmd.exe /c start java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main");
             //else if(os.contains("mac"))
