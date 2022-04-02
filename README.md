@@ -16,15 +16,17 @@ Se siete su Linux è inoltre necessario avere installato almeno uno tra xterm, g
 ## Avviare Server
 
 Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
 Digitare
 
-'java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.server.Server'
+`java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.server.Server`
 
 ## Avviare Gioco
 
 Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
 Digitare
 
-'java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar'
+`java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
 **N.B.:** Se si apre il gioco senza aprire il server non si potranno salvare e/o visualizzare i risultati.
