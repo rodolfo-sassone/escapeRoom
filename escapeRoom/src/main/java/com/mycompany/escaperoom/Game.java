@@ -773,7 +773,7 @@ public class Game implements Serializable{
     public void play(Parser p) throws Exception {
         Scanner in = new Scanner(System.in);
             boolean exit = false;
-            Thread timer = presentation(in);
+            Lose timer = presentation(in);
             
             ParserOutput po = null;
             List<MyObject> objects = new ArrayList();
@@ -801,10 +801,11 @@ public class Game implements Serializable{
                 objects.removeAll(objects);
             }while(!exit && timer.isAlive());
             
+            timer.setExit(true);
     }
     
-    public Thread presentation(Scanner in) throws Exception {
-        Thread timer = new Lose();
+    public Lose presentation(Scanner in) throws Exception {
+        Lose timer = new Lose();
         timer.setDaemon(true);
         AnsiConsole.systemInstall();
         ASCIIArtGenerator artGen = new ASCIIArtGenerator();

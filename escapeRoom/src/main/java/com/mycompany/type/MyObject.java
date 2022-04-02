@@ -29,7 +29,7 @@ public class MyObject implements Serializable{
     
     private boolean push;
     
-    private final int keyValue; //final dà problemi?
+    private final int keyValue;
     
     private Lock blocked;
 

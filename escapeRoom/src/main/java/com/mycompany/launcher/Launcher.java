@@ -240,7 +240,7 @@ public class Launcher extends javax.swing.JFrame {
         rank.setBackground(new java.awt.Color(0, 0, 0));
         rank.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         rank.setForeground(new java.awt.Color(255, 204, 0));
-        rank.setText("Ranking");
+        rank.setText("Risultati");
         rank.setToolTipText("Classifica altri giocatori");
         rank.setFocusable(false);
         rank.setPreferredSize(new java.awt.Dimension(200, 35));
