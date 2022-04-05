@@ -16,15 +16,45 @@ Se siete su Linux è inoltre necessario avere installato almeno uno tra xterm, g
 ## Avviare Server
 
 Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
 Digitare
 
-'java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.server.Server'
+`java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.server.Server`
 
 ## Avviare Gioco
 
+### Su Windows o Linux
+
 Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
 Digitare
 
-'java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar'
+`java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
+
+### Su MacOs
+
+Attualmente non è possibile lanciare il gioco tramite il Launcher.
+
+**Per Giocare**
+
+Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
+Digitare
+
+`java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main`
+
+**Per visualizzare i risultati***
+
+Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
+
+Digitare
+
+`java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
+Cliccare su *Risultati*
 
 **N.B.:** Se si apre il gioco senza aprire il server non si potranno salvare e/o visualizzare i risultati.
+
+
+
