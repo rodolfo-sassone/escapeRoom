@@ -42,6 +42,7 @@ Aprire un terminale e posizionarsi nella cartella in cui avete il file .jar
 
 Digitare
 
+<<<<<<< HEAD
 `java -cp escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.escaperoom.Main`
 
 **Per visualizzare i risultati***
@@ -58,3 +59,8 @@ Cliccare su *Risultati*
 
 
 
+=======
+`java -jar escapeRoom-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
+**N.B.:** Se si apre il gioco senza aprire il server non si potranno salvare e/o visualizzare i risultati.
+>>>>>>> 0ac999230a3a703394048c3f3303581c396a2da4
