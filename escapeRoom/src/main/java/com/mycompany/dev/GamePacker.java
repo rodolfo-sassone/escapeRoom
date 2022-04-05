@@ -121,7 +121,7 @@ public class GamePacker {
        
         List <MyObject> l5 = new ArrayList();
         l5.add(key2);
-        MyObject chest = new ContainerObject(l5, 27, "scrigno", "scrigno in metallo fissato al muro, su di esso è stampato uno stemma con la scritta \"police\", chiuso da un lucchetto a combinazione", true, false, false, false, false, 0, new CombinationLock("555", 0));
+        MyObject chest = new ContainerObject(l5, 27, "scrigno", "scrigno in metallo fissato al muro, su di esso è stampato uno stemma con la scritta \"police\", chiuso da un lucchetto a combinazione", true, false, false, false, false, 0, new CombinationLock("565", 0));
         
         List <MyObject> l6 = new ArrayList();
         MyObject magnet = new MyObject(29, "calamita", "Calamita piatta circolare a cui è saldato un gancio perpendicolarmente al centro della calamita; un gancetto con la base magnetica", 0);
