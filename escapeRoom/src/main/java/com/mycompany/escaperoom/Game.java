@@ -463,7 +463,7 @@ public class Game implements Serializable{
 
                 case READ:
                     if(po.getObj1().getId() == 18 || po.getObj1().getId() == 26 || po.getObj1().getId() == 30)
-                        out.println(po.getDoor().getDesc());
+                        out.println(po.getObj1().getDescription());
                     else
                         out.println("Niente da leggere qui");
                     break;
